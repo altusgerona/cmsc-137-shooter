@@ -1,11 +1,12 @@
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
-public class Main extends BasicGame{
+import States.*;
+
+public class Main extends StateBasedGame{
 
 	public Main() {
 		super("AaronBurr");
@@ -18,7 +19,7 @@ public class Main extends BasicGame{
 		try {
 			
 			app = new AppGameContainer(new ScalableGame(new Main(), 1280, 720, false));
-			app.setDisplayMode(1280, 720, false);
+			app.setDisplayMode(800, 600, false);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -27,24 +28,14 @@ public class Main extends BasicGame{
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g) throws SlickException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void init(GameContainer gc) throws SlickException {
+	public void initStatesList(GameContainer gc) throws SlickException {
 		gc.setTargetFrameRate(60);
 		gc.setAlwaysRender(true);
 		gc.setMaximumLogicUpdateInterval(60);
-		gc.setShowFPS(true);
+		gc.setShowFPS(false);
 		gc.setVSync(true);
-	}
-
-	@Override
-	public void update(GameContainer gc, int delta) throws SlickException {
-		// TODO Auto-generated method stub
 		
+		this.addState(new GameState());
 	}
 
 }
