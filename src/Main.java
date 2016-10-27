@@ -36,6 +36,7 @@ public class Main extends StateBasedGame{
 		gc.setVSync(true);
 		
 		this.addState(new GameState());
+		this.addState(new MenuState());
 	}
 
 }
