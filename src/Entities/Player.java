@@ -8,9 +8,12 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
+import States.States;
+
 public class Player extends Entity{
 	
 	protected int fireRate = 200; //Smaller the better
+	protected int moveSpeed = 5; //Lower is faster
 
 	public Player(Vector2f pos) {
 		super(pos);
@@ -44,27 +47,27 @@ public class Player extends Entity{
 		
 		//Move right
 		if( ( gc.getInput().isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D) ) && 
-				pos.getX() < 800  ) {
+				pos.getX() < States.GAME_HEIGHT  ) {
 			pos.add(new Vector2f(distance,0));
 		}
 		
 		//Move left
 		if( ( gc.getInput().isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A) ) && 
-				pos.getX() > -20  ) {
+				pos.getX() > 0  ) {
 		
 			pos.add(new Vector2f(-distance,0));
 		}
 		
 		//Move down
 		if( ( gc.getInput().isKeyDown(Input.KEY_DOWN) || gc.getInput().isKeyDown(Input.KEY_S) ) && 
-				pos.getY() < 600  ) {
+				pos.getY() < States.GAME_WIDTH  ) {
 		
 			pos.add(new Vector2f(0,distance));
 		}
 		
 		//Move up
 		if( ( gc.getInput().isKeyDown(Input.KEY_UP) || gc.getInput().isKeyDown(Input.KEY_W) ) && 
-				pos.getY() > -20  ) {
+				pos.getY() > 0  ) {
 		
 			pos.add(new Vector2f(0,-distance));
 		}
@@ -75,7 +78,7 @@ public class Player extends Entity{
 		s.enterState(1);
 	}
 
-	public void init(GameContainer gc) {
+	public void init(GameContainer gc) throws SlickException {
 		super.init(gc);
 		
 	}

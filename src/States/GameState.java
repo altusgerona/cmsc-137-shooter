@@ -1,5 +1,7 @@
 package States;
 
+import java.util.LinkedList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,16 +12,21 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Entities.Player;
+import Entities.Footmen;
 
 public class GameState extends BasicGameState{
 	
 	private Player p;
+	private LinkedList<Footmen> Footmen;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame s) throws SlickException {
 		//Initialize a new player with a given starting coords
 		p = new Player(new Vector2f(200, 200));
 		p.init(gc);
+		
+		//Initialize Footmen
+		
 		
 	}
 

@@ -13,7 +13,6 @@ public class Entity {
 	protected boolean alive = true;
 	protected int current = 0;
 	protected int health = 3;
-	protected int moveSpeed = 5; //Lower is faster
 	
 	public Entity (Vector2f pos) {
 		this.pos = pos;
@@ -90,7 +89,7 @@ public class Entity {
 		return alive;
 	}
 
-	public void init(GameContainer gc) {
+	public void init(GameContainer gc) throws SlickException {
 		// TODO Auto-generated method stub
 		
 	}
