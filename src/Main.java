@@ -1,6 +1,5 @@
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -18,8 +17,8 @@ public class Main extends StateBasedGame{
 		
 		try {
 			
-			app = new AppGameContainer(new ScalableGame(new Main(), 1280, 720, false));
-			app.setDisplayMode(800, 600, false);
+			app = new AppGameContainer(new Main());
+			app.setDisplayMode(States.GAME_HEIGHT, States.GAME_WIDTH, false);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -34,6 +33,8 @@ public class Main extends StateBasedGame{
 		gc.setMaximumLogicUpdateInterval(60);
 		gc.setShowFPS(false);
 		gc.setVSync(true);
+		
+//		new Resources();
 		
 		this.addState(new GameState());
 		this.addState(new MenuState());
