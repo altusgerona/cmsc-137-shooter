@@ -17,6 +17,7 @@ public class GameState extends BasicGameState{
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame s) throws SlickException {
+		//Initialize a new player with a given starting coords
 		p = new Player(new Vector2f(200, 200));
 		p.init(gc);
 		
@@ -37,6 +38,8 @@ public class GameState extends BasicGameState{
 		if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 			s.enterState(States.MENU);
 		}
+		
+		//Update the Player in every frame.
 		p.update(gc, s, t);
 	}
 

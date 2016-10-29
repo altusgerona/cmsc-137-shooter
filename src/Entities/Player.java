@@ -10,7 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Player extends Entity{
 	
-	protected int fireRate = 200;
+	protected int fireRate = 200; //Smaller the better
 
 	public Player(Vector2f pos) {
 		super(pos);
@@ -29,36 +29,44 @@ public class Player extends Entity{
 	}
 	
 	public void update(GameContainer gc, StateBasedGame s, int t) throws SlickException {
-		super.update(gc, t);
+		super.update(gc, t); //Run the Entity "parent"'s update()
 		if( gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && delta > fireRate) {
+			
 			fireBullet(new Vector2f(gc.getInput().getMouseX(),gc.getInput().getMouseY()), new Bullet());
-			System.out.println("Fire"+fireRate);
 			
 		}
 		
-		float deltaLenght = (float)t/5;
+		//Get the amount of distance to displace the Player
+		//This distance would be equal to the ratio of the update delta t and the given moveSpeed
+		float distance = (float)t/moveSpeed;
 		
 		//Controls 
 		
+		//Move right
 		if( ( gc.getInput().isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D) ) && 
-				pos.getX() < 820  ) {
-		
-			pos.add( new Vector2f(deltaLenght,0) );
+				pos.getX() < 800  ) {
+			pos.add(new Vector2f(distance,0));
 		}
+		
+		//Move left
 		if( ( gc.getInput().isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A) ) && 
 				pos.getX() > -20  ) {
 		
-			pos.add( new Vector2f(-deltaLenght,0) );
+			pos.add(new Vector2f(-distance,0));
 		}
-		if( ( gc.getInput().isKeyDown(Input.KEY_DOWN) || gc.getInput().isKeyDown(Input.KEY_S) ) && 
-				pos.getY() < 620  ) {
 		
-			pos.add( new Vector2f(0,deltaLenght) );
+		//Move down
+		if( ( gc.getInput().isKeyDown(Input.KEY_DOWN) || gc.getInput().isKeyDown(Input.KEY_S) ) && 
+				pos.getY() < 600  ) {
+		
+			pos.add(new Vector2f(0,distance));
 		}
+		
+		//Move up
 		if( ( gc.getInput().isKeyDown(Input.KEY_UP) || gc.getInput().isKeyDown(Input.KEY_W) ) && 
 				pos.getY() > -20  ) {
 		
-			pos.add( new Vector2f(0,-deltaLenght) );
+			pos.add(new Vector2f(0,-distance));
 		}
 		
 	}

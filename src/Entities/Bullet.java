@@ -13,16 +13,21 @@ public class Bullet {
 	protected int damage = 1;
 	protected int airtime = 0;
 	protected int maxAirTime = 2000;
+	protected float bulletSpeed = 1000; //Lower is faster
 	
 	public Bullet (Vector2f pos, Vector2f dir) {
 		this.pos = pos;
 		this.dir = dir;
+		
+		//Vector addition the unit vector or direction of the bullet
 		dir.scale(500);
 	}
 	
 	public Bullet init (Vector2f pos, Vector2f dir) {
 		this.pos = pos;
 		this.dir = dir;
+		
+		//Vector addition the unit vector or direction of the bullet
 		dir.scale(500);
 		setActive(true);
 		return this;
@@ -35,8 +40,14 @@ public class Bullet {
 	public void update (int t) {
 		if (active) {
 			Vector2f speed = dir.copy();
-			speed.scale((t/1000.0f));
+			
+			//Increase the speed variable that would increment its position
+			speed.scale((t/bulletSpeed));
+			
+			//Increment the position of the bullet with a vector of the same direction, speed
 			pos.add(speed);
+			
+			//Limit the rendering of a bullet so it may be deleted off screen
 			airtime += t;
 			if (airtime > maxAirTime) active = false;
 			
@@ -45,7 +56,7 @@ public class Bullet {
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		if (active) {
-			//Draw bullet here
+			//Draw bullet
 			g.setColor(Color.red);
 			g.fillOval(pos.getX()-10, pos.getY()-10, 20, 20);
 		}

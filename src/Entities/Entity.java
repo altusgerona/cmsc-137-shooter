@@ -13,6 +13,7 @@ public class Entity {
 	protected boolean alive = true;
 	protected int current = 0;
 	protected int health = 3;
+	protected int moveSpeed = 5; //Lower is faster
 	
 	public Entity (Vector2f pos) {
 		this.pos = pos;
@@ -25,13 +26,17 @@ public class Entity {
 	}
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+		
+		//Render the bullets currently fired
 		for (Bullet b : bullets) {
 			b.render(gc, g);
 		}
 	}
 	
-	public void update(GameContainer gc, int t) {
-		delta += t;
+	public void update(GameContainer gc, int t) throws SlickException {
+		
+		//Measure the difference between two clicks so rapidfiring can be regulated
+		delta += t; //Increment delta with the time it took for a user to left click.
 		
 		for (Bullet b: bullets) {
 			b.update(t);
@@ -39,11 +44,20 @@ public class Entity {
 	}
 	
 	public void fireBullet (Vector2f vec, Bullet b) {
+		//Reset delta to 0 since the user has already left clicked
 		delta = 0;
+		
+		//Subtract the current position of the Player in coordinates from the clicked area's coordinates
 		vec.sub(pos);
+		
+		//Normalize the vector to get the unit vector pointing to the direction
 		vec.normalise();
+		
+		//Initialize the current bullet with the current position of the Player and direction
 		bullets[current] = b.init(pos.copy(), vec);
 		current++;
+		
+		//Loop back through all the bullets. Infinite.
 		if (current >= bullets.length) current = 0;
 		
 	}
