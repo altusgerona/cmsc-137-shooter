@@ -17,15 +17,17 @@ import Entities.Footmen;
 public class GameState extends BasicGameState{
 	
 	private Player p;
-	private LinkedList<Footmen> Footmen;
+	private LinkedList<Footmen> footMen;
+	private Footmen f;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame s) throws SlickException {
 		//Initialize a new player with a given starting coords
-		p = new Player(new Vector2f(200, 200));
-		p.init(gc);
+		p = new Player(new Vector2f(States.GAME_HEIGHT/2, States.GAME_WIDTH/2));
 		
 		//Initialize Footmen
+		footMen = new LinkedList<Footmen>(); 
+		f = new Footmen(new Vector2f(150, 200), p);
 		
 		
 	}
@@ -38,6 +40,14 @@ public class GameState extends BasicGameState{
 		
 		//Render player
 		p.render(gc, g);
+		
+		
+		
+		if (f.isAlive()) {
+			
+			f.render(gc, g);
+			f.isHit(p.getBullets());
+		}
 	}
 
 	@Override
@@ -48,6 +58,9 @@ public class GameState extends BasicGameState{
 		
 		//Update the Player in every frame.
 		p.update(gc, s, t);
+		
+		//Update enemies in every frame.
+		f.update(gc, t);
 	}
 
 	@Override

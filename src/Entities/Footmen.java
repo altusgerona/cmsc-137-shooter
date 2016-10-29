@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Vector2f;
 public class Footmen extends Entity{
 	
 	protected int footMenFR = 300;
-	protected int moveSpeed = 20;
+	protected int moveSpeed = 10;
 	private Player p;
 
 	public Footmen(Vector2f pos, Player p) {

@@ -69,11 +69,14 @@ public class Entity {
 		return pos;
 	}
 	
-	public void isBulletCollide (Bullet[] targetBullet) {
+	public void isHit (Bullet[] targetBullet) {
+		//Check every bullet whether it hit something or not
 		for (Bullet b : targetBullet) {
 			if (b.isActive() && b.collideWith(pos, 100)) {
 				//Kill bullet
 				b.setActive(false);
+				//Lower health
+				System.out.println(health);
 				health -= b.getDamage();
 				if (health < 1 && alive) die();
 				
