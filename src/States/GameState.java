@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -19,11 +20,17 @@ public class GameState extends BasicGameState{
 	private Player p;
 	private LinkedList<Footmen> footMen;
 	private Footmen f;
+	private TextField tf;
+	private boolean chatEnabled = false;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame s) throws SlickException {
 		//Initialize a new player with a given starting coords
 		p = new Player(new Vector2f(States.GAME_HEIGHT/2, States.GAME_WIDTH/2));
+		
+		//Initialize TextField for chat
+		tf = new TextField(gc, gc.getDefaultFont(), 0, 580,800,25);
+		
 		
 		//Initialize Footmen
 		footMen = new LinkedList<Footmen>(); 
@@ -42,18 +49,23 @@ public class GameState extends BasicGameState{
 		p.render(gc, g);
 		
 		
-		
 		if (f.isAlive()) {
 			
 			f.render(gc, g);
 			f.isHit(p.getBullets());
+		}
+		
+		//Render TextField
+		if (chatEnabled) {
+			tf.render(gc, g);
 		}
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame s, int t) throws SlickException {
 		if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
-			s.enterState(States.MENU);
+//			s.enterState(States.MENU);
+			chatEnabled = true;
 		}
 		
 		//Update the Player in every frame.
