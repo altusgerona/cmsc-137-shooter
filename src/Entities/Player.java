@@ -53,14 +53,14 @@ public class Player extends Entity{
 		//Controls 
 		
 		//Move right
-		if( ( gc.getInput().isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D) ) && 
+		if((gc.getInput().isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D) ) && 
 				pos.getX() < States.GAME_HEIGHT  ) {
 			pos.add(new Vector2f(distance,0));
 			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos));
 		}
 		
 		//Move left
-		if( ( gc.getInput().isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A) ) && 
+		if((gc.getInput().isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A) ) && 
 				pos.getX() > 0  ) {
 		
 			pos.add(new Vector2f(-distance,0));
@@ -68,7 +68,7 @@ public class Player extends Entity{
 		}
 		
 		//Move down
-		if( ( gc.getInput().isKeyDown(Input.KEY_DOWN) || gc.getInput().isKeyDown(Input.KEY_S) ) && 
+		if((gc.getInput().isKeyDown(Input.KEY_DOWN) || gc.getInput().isKeyDown(Input.KEY_S) ) && 
 				pos.getY() < States.GAME_WIDTH  ) {
 		
 			pos.add(new Vector2f(0,distance));
