@@ -3,7 +3,8 @@ package Networking;
 import com.jmr.wrapper.common.Connection;
 import com.jmr.wrapper.common.listener.SocketListener;
 
-import Entities.Position;
+import Packets.BulletFire;
+import Packets.Position;
 
 public class ServerListener implements SocketListener{
 
@@ -26,6 +27,13 @@ public class ServerListener implements SocketListener{
 			Position pos = (Position) object;
 			for (Connection c : ConnectionManager.getInstance().getConnections()) {
 				c.sendTcp(pos);
+			}
+		}
+		
+		if (object instanceof BulletFire) {
+			BulletFire bf = (BulletFire) object;
+			for (Connection c : ConnectionManager.getInstance().getConnections()) {
+				c.sendTcp(bf);
 			}
 		}
 	}

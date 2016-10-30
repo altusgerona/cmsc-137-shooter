@@ -20,7 +20,7 @@ import Entities.Footmen;
 
 public class GameState extends BasicGameState implements SocketListener{
 	
-	private Player p;
+	public static Player p;
 	private LinkedList<Footmen> footMen;
 	private Footmen f;
 	private TextField tf;

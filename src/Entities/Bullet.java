@@ -1,12 +1,15 @@
 package Entities;
 
+import java.io.Serializable;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Bullet {
+@SuppressWarnings("serial")
+public class Bullet implements Serializable{
 	protected Vector2f pos;
 	protected Vector2f dir;
 	protected boolean active = true;
@@ -19,7 +22,7 @@ public class Bullet {
 		this.pos = pos;
 		this.dir = dir;
 		
-		//Vector addition the unit vector or direction of the bullet
+		//Scalar multiply the unit vector or direction of the bullet
 		dir.scale(500);
 	}
 	
@@ -27,7 +30,7 @@ public class Bullet {
 		this.pos = pos;
 		this.dir = dir;
 		
-		//Vector addition the unit vector or direction of the bullet
+		//scalar multiply the unit vector or direction of the bullet
 		dir.scale(500);
 		setActive(true);
 		return this;

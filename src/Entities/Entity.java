@@ -18,7 +18,7 @@ public class Entity {
 		this.pos = pos;
 		
 		//Initialize bullets
-		bullets = new Bullet[20];
+		bullets = new Bullet[100];
 		for (int i=0; i<bullets.length; i++) {
 			bullets[i] = new Bullet();
 		}
@@ -47,13 +47,21 @@ public class Entity {
 		delta = 0;
 		
 		//Subtract the current position of the Player in coordinates from the clicked area's coordinates
-		vec.sub(pos);
+		if (Networking.ClientListener.pos != null) {
+			vec.sub(Networking.ClientListener.pos);
+		} else {
+			vec.sub(pos);
+		}
 		
 		//Normalize the vector to get the unit vector pointing to the direction
 		vec.normalise();
 		
 		//Initialize the current bullet with the current position of the Player and direction
-		bullets[current] = b.init(pos.copy(), vec);
+		if (Networking.ClientListener.pos != null) {
+			bullets[current] = b.init(Networking.ClientListener.pos.copy(), vec);
+		} else {
+			bullets[current] = b.init(pos.copy(), vec);
+		}
 		current++;
 		
 		//Loop back through all the bullets. Infinite.

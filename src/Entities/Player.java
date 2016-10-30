@@ -8,7 +8,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
-
+import Packets.BulletFire;
+import Packets.Position;
 import States.States;
 
 public class Player extends Entity{
@@ -34,6 +35,15 @@ public class Player extends Entity{
 			g.fillRect(pos.getX()-30, pos.getY()-30, 60, 60);
 		}
 		
+		if (Networking.ClientListener.bulletPos != null) {
+			fireBullet(Networking.ClientListener.bulletPos, Networking.ClientListener.b);
+			System.out.println("Fire baby");
+			System.out.println("Fire baby 2");
+			Networking.ClientListener.bulletPos = null;
+			Networking.ClientListener.b = null;
+		}
+		
+		
 		//health bar here
 		
 	}
@@ -41,9 +51,10 @@ public class Player extends Entity{
 	public void update(GameContainer gc, StateBasedGame s, int t) throws SlickException {
 		super.update(gc, t); //Run the Entity "parent"'s update()
 		if( gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && delta > fireRate) {
-			
-			fireBullet(new Vector2f(gc.getInput().getMouseX(),gc.getInput().getMouseY()), new Bullet());
-			
+			Vector2f mousePos = new Vector2f(gc.getInput().getMouseX(), gc.getInput().getMouseY());
+			Bullet newBullet = new Bullet();
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new BulletFire(mousePos, newBullet));
+			System.out.println("FIIIRE");
 		}
 		
 		//Get the amount of distance to displace the Player
