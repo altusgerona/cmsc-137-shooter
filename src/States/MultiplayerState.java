@@ -8,8 +8,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.jmr.wrapper.common.exceptions.NNClientCantConnect;
 
-import Networking.ServerStarter;
 import Networking.ClientStarter;
+import Networking.ServerStarter;
+import Packets.StartSignal;
 
 public class MultiplayerState extends BasicGameState {
 	
@@ -33,6 +34,10 @@ public class MultiplayerState extends BasicGameState {
 		g.drawString("Press C to start a server", 330, 200);
 		g.drawString("Press J to join a server", 330, 250);
 		g.drawString("Press S to start the game", 330, 300);
+		
+		if (Networking.ClientListener.ss) {
+			s.enterState(States.GAME);
+		}
 	}
 
 	@Override
@@ -51,7 +56,8 @@ public class MultiplayerState extends BasicGameState {
 		}
 		
 		if (gc.getInput().isKeyPressed(Input.KEY_S)) {
-			s.enterState(States.GAME);
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new StartSignal(true));
+//			s.enterState(States.GAME);
 		}
 		
 	}

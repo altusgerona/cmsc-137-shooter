@@ -5,6 +5,7 @@ import com.jmr.wrapper.common.listener.SocketListener;
 
 import Packets.BulletFire;
 import Packets.Position;
+import Packets.StartSignal;
 
 public class ServerListener implements SocketListener{
 
@@ -34,6 +35,13 @@ public class ServerListener implements SocketListener{
 			BulletFire bf = (BulletFire) object;
 			for (Connection c : ConnectionManager.getInstance().getConnections()) {
 				c.sendTcp(bf);
+			}
+		}
+		
+		if (object instanceof StartSignal) {
+			StartSignal ss = (StartSignal) object;
+			for (Connection c : ConnectionManager.getInstance().getConnections()) {
+				c.sendTcp(ss);
 			}
 		}
 	}

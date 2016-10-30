@@ -8,11 +8,13 @@ import com.jmr.wrapper.common.listener.SocketListener;
 import Entities.Bullet;
 import Packets.BulletFire;
 import Packets.Position;
+import Packets.StartSignal;
 
 public class ClientListener implements SocketListener{
 	public static Vector2f pos;
 	public static Vector2f bulletPos;
 	public static Bullet b;
+	public static boolean ss;
 
 	@Override
 	public void connected(Connection arg0) {
@@ -33,6 +35,10 @@ public class ClientListener implements SocketListener{
 		if (object instanceof BulletFire) {
 			bulletPos = ((BulletFire) object).pos;
 			b = ((BulletFire) object).b;
+		}
+		
+		if (object instanceof StartSignal) {
+			ss = ((StartSignal) object).start;
 		}
 	}
 	
