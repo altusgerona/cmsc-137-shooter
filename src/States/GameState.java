@@ -12,6 +12,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Entities.Player;
+import Entities.Bullet;
 import Entities.Footmen;
 
 public class GameState extends BasicGameState{
@@ -74,12 +75,11 @@ public class GameState extends BasicGameState{
 			}
 		}
 		
-		if(!chatEnabled && !gc.getInput().isKeyPressed(Input.KEY_W) &&!gc.getInput().isKeyPressed(Input.KEY_A) && !gc.getInput().isKeyPressed(Input.KEY_S) && !gc.getInput().isKeyPressed(Input.KEY_D) ){
-			//Update the Player in every frame.
-			p.update(gc, s, t);
+		if(chatEnabled) {
+			tf.setFocus(true);
 		}
 		
-		
+		p.update(gc, s, t, chatEnabled);
 		
 		//Update enemies in every frame.
 		f.update(gc, t);
