@@ -3,6 +3,7 @@ package States;
 public class States {
 	public static final int GAME = 0;
 	public static final int MENU = 1;
+	public static final int MULTIPLAYER = 2;
 	
 	
 	public static final int GAME_HEIGHT = 800;

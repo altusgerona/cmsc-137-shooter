@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/lwjgl.jar"/>
 	<classpathentry kind="lib" path="lib/slick.jar"/>
 	<classpathentry kind="lib" path="lib/natives-windows.jar"/>
+	<classpathentry kind="lib" path="lib/NitroNet.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

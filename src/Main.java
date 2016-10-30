@@ -36,8 +36,9 @@ public class Main extends StateBasedGame{
 		
 //		new Resources();
 		
-		this.addState(new GameState());
 		this.addState(new MenuState());
+		this.addState(new GameState());
+		this.addState(new MultiplayerState());
 	}
 
 }

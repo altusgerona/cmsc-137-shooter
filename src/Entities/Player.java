@@ -8,10 +8,12 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
+
 import States.States;
 
 public class Player extends Entity{
 	
+	protected int playerID; //Clients control only their player
 	protected int fireRate = 200; //Smaller the better
 	protected int moveSpeed = 5; //Lower is faster
 
@@ -25,7 +27,12 @@ public class Player extends Entity{
 		super.render(gc, g);
 		
 		g.setColor(Color.blue);
-		g.fillRect(pos.getX()-30, pos.getY()-30, 60, 60);
+		
+		if (Networking.ClientListener.pos != null) {
+			g.fillRect(Networking.ClientListener.pos.x-30, Networking.ClientListener.pos.y-30, 60, 60);
+		} else {
+			g.fillRect(pos.getX()-30, pos.getY()-30, 60, 60);
+		}
 		
 		//health bar here
 		
@@ -49,6 +56,7 @@ public class Player extends Entity{
 		if( ( gc.getInput().isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D) ) && 
 				pos.getX() < States.GAME_HEIGHT  ) {
 			pos.add(new Vector2f(distance,0));
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos));
 		}
 		
 		//Move left
@@ -56,6 +64,7 @@ public class Player extends Entity{
 				pos.getX() > 0  ) {
 		
 			pos.add(new Vector2f(-distance,0));
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos));
 		}
 		
 		//Move down
@@ -63,6 +72,8 @@ public class Player extends Entity{
 				pos.getY() < States.GAME_WIDTH  ) {
 		
 			pos.add(new Vector2f(0,distance));
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos));
+			
 		}
 		
 		//Move up
@@ -70,6 +81,7 @@ public class Player extends Entity{
 				pos.getY() > 0  ) {
 		
 			pos.add(new Vector2f(0,-distance));
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos));
 		}
 		
 	}
@@ -82,6 +94,8 @@ public class Player extends Entity{
 		super.init(gc);
 		
 	}
+
+	
 
 
 }

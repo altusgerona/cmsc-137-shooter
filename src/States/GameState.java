@@ -12,10 +12,13 @@ import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.jmr.wrapper.common.Connection;
+import com.jmr.wrapper.common.listener.SocketListener;
+
 import Entities.Player;
 import Entities.Footmen;
 
-public class GameState extends BasicGameState{
+public class GameState extends BasicGameState implements SocketListener{
 	
 	private Player p;
 	private LinkedList<Footmen> footMen;
@@ -35,6 +38,7 @@ public class GameState extends BasicGameState{
 		//Initialize Footmen
 		footMen = new LinkedList<Footmen>(); 
 		f = new Footmen(new Vector2f(150, 200), p);
+		
 		
 		
 	}
@@ -78,6 +82,21 @@ public class GameState extends BasicGameState{
 	@Override
 	public int getID() {
 		return States.GAME;
+	}
+
+	@Override
+	public void connected(Connection con) {
+		
+	}
+
+	@Override
+	public void disconnected(Connection con) {
+		
+	}
+
+	@Override
+	public void received(Connection con, Object object) {
+		
 	}
 
 }
