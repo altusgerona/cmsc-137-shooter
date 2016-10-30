@@ -1,7 +1,6 @@
 package States;
 
 import java.util.LinkedList;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -65,11 +64,22 @@ public class GameState extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame s, int t) throws SlickException {
 		if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 //			s.enterState(States.MENU);
-			chatEnabled = true;
+			if(chatEnabled) {
+				System.out.println(tf.getText());
+				tf.setText("");
+				chatEnabled = false;
+			} else {
+				tf.setFocus(true);
+				chatEnabled = true;
+			}
 		}
 		
-		//Update the Player in every frame.
-		p.update(gc, s, t);
+		if(!chatEnabled && !gc.getInput().isKeyPressed(Input.KEY_W) &&!gc.getInput().isKeyPressed(Input.KEY_A) && !gc.getInput().isKeyPressed(Input.KEY_S) && !gc.getInput().isKeyPressed(Input.KEY_D) ){
+			//Update the Player in every frame.
+			p.update(gc, s, t);
+		}
+		
+		
 		
 		//Update enemies in every frame.
 		f.update(gc, t);
@@ -79,5 +89,4 @@ public class GameState extends BasicGameState{
 	public int getID() {
 		return States.GAME;
 	}
-
 }
