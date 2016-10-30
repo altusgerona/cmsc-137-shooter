@@ -1,7 +1,6 @@
 package States;
 
 import java.util.LinkedList;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,6 +12,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Entities.Player;
+import Entities.Bullet;
 import Entities.Footmen;
 
 public class GameState extends BasicGameState{
@@ -65,11 +65,21 @@ public class GameState extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame s, int t) throws SlickException {
 		if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 //			s.enterState(States.MENU);
-			chatEnabled = true;
+			if(chatEnabled) {
+				System.out.println(tf.getText());
+				tf.setText("");
+				chatEnabled = false;
+			} else {
+				tf.setFocus(true);
+				chatEnabled = true;
+			}
 		}
 		
-		//Update the Player in every frame.
-		p.update(gc, s, t);
+		if(chatEnabled) {
+			tf.setFocus(true);
+		}
+		
+		p.update(gc, s, t, chatEnabled);
 		
 		//Update enemies in every frame.
 		f.update(gc, t);
@@ -79,5 +89,4 @@ public class GameState extends BasicGameState{
 	public int getID() {
 		return States.GAME;
 	}
-
 }
