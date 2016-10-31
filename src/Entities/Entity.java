@@ -47,8 +47,8 @@ public class Entity {
 		delta = 0;
 		
 		//Subtract the current position of the Player in coordinates from the clicked area's coordinates
-		if (Networking.ClientListener.pos != null) {
-			vec.sub(Networking.ClientListener.pos);
+		if (Networking.ClientListener.playerInfo.get(States.States.playerId) != null) {
+			vec.sub(Networking.ClientListener.playerInfo.get(States.States.playerId));
 		} else {
 			vec.sub(pos);
 		}
@@ -57,8 +57,8 @@ public class Entity {
 		vec.normalise();
 		
 		//Initialize the current bullet with the current position of the Player and direction
-		if (Networking.ClientListener.pos != null) {
-			bullets[current] = b.init(Networking.ClientListener.pos.copy(), vec);
+		if (Networking.ClientListener.playerInfo.get(States.States.playerId) != null) {
+			bullets[current] = b.init(Networking.ClientListener.playerInfo.get(States.States.playerId).copy(), vec);
 		} else {
 			bullets[current] = b.init(pos.copy(), vec);
 		}

@@ -16,10 +16,11 @@ public class Player extends Entity{
 	
 	protected int fireRate = 200; //Smaller the better
 	protected int moveSpeed = 5; //Lower is faster
+	public int playerId;
 
-	public Player(Vector2f pos) {
+	public Player(Vector2f pos, int playerId) {
 		super(pos);
-		
+		this.playerId = playerId;
 	}
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -28,8 +29,8 @@ public class Player extends Entity{
 		
 		g.setColor(Color.blue);
 		
-		if (Networking.ClientListener.pos != null) {
-			g.fillRect(Networking.ClientListener.pos.x-30, Networking.ClientListener.pos.y-30, 60, 60);
+		if (Networking.ClientListener.playerInfo.get(playerId) != null) {
+			g.fillRect(Networking.ClientListener.playerInfo.get(playerId).x-30, Networking.ClientListener.playerInfo.get(playerId).y-30, 60, 60);
 		} else {
 			g.fillRect(pos.getX()-30, pos.getY()-30, 60, 60);
 		}
@@ -61,9 +62,9 @@ public class Player extends Entity{
 		
 		//Move right
 		if((gc.getInput().isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D) ) && 
-				pos.getX() < States.GAME_HEIGHT  ) {
+				pos.getX() < States.GAME_HEIGHT ) {
 			pos.add(new Vector2f(distance,0));
-			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos));
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos, States.playerId));
 		}
 		
 		//Move left
@@ -71,7 +72,7 @@ public class Player extends Entity{
 				pos.getX() > 0  ) {
 		
 			pos.add(new Vector2f(-distance,0));
-			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos));
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos, States.playerId));
 		}
 		
 		//Move down
@@ -79,7 +80,7 @@ public class Player extends Entity{
 				pos.getY() < States.GAME_WIDTH  ) {
 		
 			pos.add(new Vector2f(0,distance));
-			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos));
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos, States.playerId));
 			
 		}
 		
@@ -88,7 +89,7 @@ public class Player extends Entity{
 				pos.getY() > 0  ) {
 		
 			pos.add(new Vector2f(0,-distance));
-			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos));
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos, States.playerId));
 		}
 		
 	}

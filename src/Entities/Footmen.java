@@ -34,8 +34,8 @@ public class Footmen extends Entity{
 		//Get the unit vector from the result
 		//Scalar multiply the vector by the ratio of update delta t and the Footmen's movespeed
 		//Add the newly created vector to the current position of the enemy.
-		if (Networking.ClientListener.pos != null) {
-			pos.add(Networking.ClientListener.pos.copy().sub(pos).normalise().scale((float)t/moveSpeed));
+		if (Networking.ClientListener.playerInfo.get(States.States.playerId) != null) {
+			pos.add(Networking.ClientListener.playerInfo.get(States.States.playerId).copy().sub(pos).normalise().scale((float)t/moveSpeed));
 		} else {
 			pos.add(p.getPos().copy().sub(pos).normalise().scale((float)t/moveSpeed));
 			

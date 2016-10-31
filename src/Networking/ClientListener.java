@@ -2,6 +2,8 @@ package Networking;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.newdawn.slick.geom.Vector2f;
 
@@ -15,7 +17,7 @@ import Packets.Position;
 import Packets.StartSignal;
 
 public class ClientListener implements SocketListener{
-	public static Vector2f pos;
+	public static Map<Integer, Vector2f> playerInfo= new HashMap<Integer, Vector2f>();
 	public static Vector2f bulletPos;
 	public static Bullet b;
 	public static boolean ss;
@@ -33,7 +35,7 @@ public class ClientListener implements SocketListener{
 	@Override
 	public void received(Connection con, Object object) {
 		if (object instanceof Position) {
-			pos = ((Position) object).pos;
+			playerInfo.put(((Position) object).playerId, ((Position) object).pos);
 		}
 		
 		if (object instanceof BulletFire) {

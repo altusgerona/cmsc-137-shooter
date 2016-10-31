@@ -50,9 +50,9 @@ public class GameState extends BasicGameState implements SocketListener{
 		
 
 		for (int i=0; i<playerCount; i++){
-			p[i] = new Player(new Vector2f(400, 300));
+			p[i] = new Player(new Vector2f(400, 300), i);
 			p[i].init(gc);
-			System.out.println("I initialize player");
+			System.out.println("I initialize player with playerId "+p[i].playerId);
 		}
 		
 		
