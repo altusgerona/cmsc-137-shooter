@@ -32,7 +32,6 @@ public class Player extends Entity{
 		if (Networking.ClientListener.playerInfo.get(playerId) != null) {
 			g.fillRect(Networking.ClientListener.playerInfo.get(playerId).x-30, Networking.ClientListener.playerInfo.get(playerId).y-30, 60, 60);
 		} else {
-//			g.fillRect(pos.getX()-30, pos.getY()-30, 60, 60);
 			//Initialize the position of another player's
 			g.fillRect(400-30, 300-30, 60, 60);
 		}
@@ -66,6 +65,7 @@ public class Player extends Entity{
 		if((gc.getInput().isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D) ) && 
 				pos.getX() < States.GAME_HEIGHT ) {
 			pos.add(new Vector2f(distance,0));
+			//Send updated position to server to redistribute to the rest of the clients
 			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos, States.playerId));
 		}
 		
@@ -74,6 +74,7 @@ public class Player extends Entity{
 				pos.getX() > 0  ) {
 		
 			pos.add(new Vector2f(-distance,0));
+			//Send updated position to server to redistribute to the rest of the clients
 			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos, States.playerId));
 		}
 		
@@ -82,6 +83,7 @@ public class Player extends Entity{
 				pos.getY() < States.GAME_WIDTH  ) {
 		
 			pos.add(new Vector2f(0,distance));
+			//Send updated position to server to redistribute to the rest of the clients
 			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos, States.playerId));
 			
 		}
@@ -91,13 +93,14 @@ public class Player extends Entity{
 				pos.getY() > 0  ) {
 		
 			pos.add(new Vector2f(0,-distance));
+			//Send updated position to server to redistribute to the rest of the clients
 			Networking.ClientStarter.client.getServerConnection().sendTcp(new Position(pos, States.playerId));
 		}
 		
 	}
 	
 	public void die(StateBasedGame s) {
-		s.enterState(1);
+		s.enterState(States.MENU);
 	}
 
 	public void init(GameContainer gc) throws SlickException {

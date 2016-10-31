@@ -15,14 +15,11 @@ import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.jmr.wrapper.common.Connection;
-import com.jmr.wrapper.common.listener.SocketListener;
 
 import Entities.Footmen;
 import Entities.Player;
-import Networking.ServerListener;
 
-public class GameState extends BasicGameState implements SocketListener{
+public class GameState extends BasicGameState{
 	
 	private Player[] p = new Player[2];
 	private LinkedList<Footmen> footMen;
@@ -79,9 +76,9 @@ public class GameState extends BasicGameState implements SocketListener{
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame s, Graphics g) throws SlickException {
+		//Color the background
 		g.setColor(Color.white);
 		g.fillRect(0, 0, States.GAME_HEIGHT, States.GAME_WIDTH);
-		g.drawString("Game State sample", 50, 50);
 		
 		//Render all players
 		for (int i=0; i<playerCount; i++) {
@@ -89,9 +86,8 @@ public class GameState extends BasicGameState implements SocketListener{
 			p[i].render(gc, g);
 		}
 		
-		
+		//Continue rendering enemy/s if they're still alive
 		if (f.isAlive()) {
-			
 			f.render(gc, g);
 			f.isHit(p[playerId].getBullets());
 		}
@@ -120,22 +116,9 @@ public class GameState extends BasicGameState implements SocketListener{
 
 	@Override
 	public int getID() {
-		return States.GAME;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	@Override
-	public void connected(Connection con) {
-		
-	}
-
-	@Override
-	public void disconnected(Connection con) {
-		
-	}
-
-	@Override
-	public void received(Connection con, Object object) {
-		
-	}
 
 }
