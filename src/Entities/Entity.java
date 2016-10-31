@@ -43,7 +43,6 @@ public class Entity {
 	}
 	
 	public void fireBullet (Vector2f vec, Bullet b, int playerId) {
-//		if (playerId == States.States.playerId) return;
 		//Reset delta to 0 since the user has already left clicked
 		delta = 0;
 		

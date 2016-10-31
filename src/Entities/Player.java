@@ -14,7 +14,7 @@ import States.States;
 
 public class Player extends Entity{
 	
-	protected int fireRate = 200; //Smaller the better
+	protected int fireRate = 350; //Smaller the better
 	protected int moveSpeed = 5; //Lower is faster
 	public int playerId;
 
@@ -37,7 +37,7 @@ public class Player extends Entity{
 			g.fillRect(400-30, 300-30, 60, 60);
 		}
 		
-		if (Networking.ClientListener.bulletPos != null) {
+		if (Networking.ClientListener.bulletPos != null && delta > fireRate) {
 			fireBullet(Networking.ClientListener.bulletPos, Networking.ClientListener.b, Networking.ClientListener.playerId);
 			Networking.ClientListener.bulletPos = null;
 			Networking.ClientListener.b = null;
