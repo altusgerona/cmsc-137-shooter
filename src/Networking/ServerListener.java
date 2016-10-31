@@ -62,9 +62,10 @@ public class ServerListener implements SocketListener{
 				
 			}
 			PlayerUpdate pu = (PlayerUpdate) object;
-			for (Connection c : ConnectionManager.getInstance().getConnections()) {
-				c.sendTcp(pu);
-			}
+			
+			//Send playerId updates to latest added client
+			ConnectionManager.getInstance().getConnections().get(playerCount-1).sendTcp(pu);;
+			
 		}
 	}
 	

@@ -1,5 +1,8 @@
 package Networking;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import org.newdawn.slick.geom.Vector2f;
 
 import com.jmr.wrapper.common.Connection;
@@ -44,9 +47,19 @@ public class ClientListener implements SocketListener{
 		
 		if (object instanceof PlayerUpdate) {
 			if (((PlayerUpdate) object).updateCount) {
-				States.States.playerCount++;
-				States.States.playerId=States.States.playerCount-1;
-				System.out.println(States.States.playerCount);
+				BufferedReader br;
+				String currLine = null;
+				try {
+					br = new BufferedReader(new FileReader("game-metadata.txt"));
+					currLine = br.readLine();
+					br.close();
+				} catch(Exception e) {
+					
+				}
+				
+				
+				States.States.playerId=Integer.parseInt(currLine)-1;
+				System.out.println("My playerId is "+States.States.playerId);
 			}
 		}
 	}

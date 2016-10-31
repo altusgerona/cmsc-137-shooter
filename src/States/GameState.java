@@ -57,6 +57,7 @@ public class GameState extends BasicGameState implements SocketListener{
 		
 		
 		f = new Footmen(new Vector2f(150, 200), p[0]);
+		System.out.println("My supposed playerID is "+States.playerId);
 	}
 
 	@Override
