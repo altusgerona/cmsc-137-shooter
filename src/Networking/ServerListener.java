@@ -5,10 +5,12 @@ import java.io.PrintWriter;
 import com.jmr.wrapper.common.Connection;
 import com.jmr.wrapper.common.listener.SocketListener;
 
+
 import Packets.BulletFire;
 import Packets.PlayerUpdate;
 import Packets.Position;
 import Packets.StartSignal;
+
 
 public class ServerListener implements SocketListener{
 	public static int playerCount = 0;
@@ -67,6 +69,7 @@ public class ServerListener implements SocketListener{
 			ConnectionManager.getInstance().getConnections().get(playerCount-1).sendTcp(pu);;
 			
 		}
+
 	}
 	
 

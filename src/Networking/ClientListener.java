@@ -10,6 +10,7 @@ import org.newdawn.slick.geom.Vector2f;
 import com.jmr.wrapper.common.Connection;
 import com.jmr.wrapper.common.listener.SocketListener;
 
+
 import Entities.Bullet;
 import Packets.BulletFire;
 import Packets.PlayerUpdate;
@@ -66,6 +67,8 @@ public class ClientListener implements SocketListener{
 				System.out.println("My playerId is "+States.States.playerId);
 			}
 		}
+		
+
 	}
 	
 

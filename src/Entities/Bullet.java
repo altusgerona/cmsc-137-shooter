@@ -49,6 +49,7 @@ public class Bullet implements Serializable{
 			
 			//Increment the position of the bullet with a vector of the same direction, speed
 			pos.add(speed);
+			Networking.ClientStarter.client.getServerConnection().sendTcp(pos);
 			
 			//Limit the rendering of a bullet so it may be deleted off screen
 			airtime += t;
@@ -61,7 +62,12 @@ public class Bullet implements Serializable{
 		if (active) {
 			//Draw bullet
 			g.setColor(Color.red);
-			g.fillOval(pos.getX()-10, pos.getY()-10, 20, 20);
+			
+			if (Networking.ClientListener.bulletPos != null) {
+				g.fillOval(Networking.ClientListener.bulletPos.x-10, Networking.ClientListener.bulletPos.y-10, 20, 20);
+			} else {
+				g.fillOval(pos.getX()-10, pos.getY()-10, 20, 20);
+			}
 		}
 	}
 	
