@@ -57,7 +57,6 @@ public class MultiplayerState extends BasicGameState {
 		
 		if (gc.getInput().isKeyPressed(Input.KEY_S)) {
 			Networking.ClientStarter.client.getServerConnection().sendTcp(new StartSignal(true));
-//			s.enterState(States.GAME);
 		}
 		
 	}

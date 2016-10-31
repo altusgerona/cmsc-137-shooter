@@ -14,7 +14,6 @@ import States.States;
 
 public class Player extends Entity{
 	
-	protected int playerID; //Clients control only their player
 	protected int fireRate = 200; //Smaller the better
 	protected int moveSpeed = 5; //Lower is faster
 
@@ -37,8 +36,6 @@ public class Player extends Entity{
 		
 		if (Networking.ClientListener.bulletPos != null) {
 			fireBullet(Networking.ClientListener.bulletPos, Networking.ClientListener.b);
-			System.out.println("Fire baby");
-			System.out.println("Fire baby 2");
 			Networking.ClientListener.bulletPos = null;
 			Networking.ClientListener.b = null;
 		}
@@ -54,7 +51,6 @@ public class Player extends Entity{
 			Vector2f mousePos = new Vector2f(gc.getInput().getMouseX(), gc.getInput().getMouseY());
 			Bullet newBullet = new Bullet();
 			Networking.ClientStarter.client.getServerConnection().sendTcp(new BulletFire(mousePos, newBullet));
-			System.out.println("FIIIRE");
 		}
 		
 		//Get the amount of distance to displace the Player

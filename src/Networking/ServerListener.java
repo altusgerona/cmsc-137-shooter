@@ -1,13 +1,17 @@
 package Networking;
 
+import java.io.PrintWriter;
+
 import com.jmr.wrapper.common.Connection;
 import com.jmr.wrapper.common.listener.SocketListener;
 
 import Packets.BulletFire;
+import Packets.PlayerUpdate;
 import Packets.Position;
 import Packets.StartSignal;
 
 public class ServerListener implements SocketListener{
+	public static int playerCount = 0;
 
 	@Override
 	public void connected(Connection con) {
@@ -42,6 +46,24 @@ public class ServerListener implements SocketListener{
 			StartSignal ss = (StartSignal) object;
 			for (Connection c : ConnectionManager.getInstance().getConnections()) {
 				c.sendTcp(ss);
+			}
+		}
+		
+		if (object instanceof PlayerUpdate) {
+			playerCount++;
+			System.out.println("I happened");
+			
+			//Write to a file the playerCount so all instances have access
+			try {
+				PrintWriter writer = new PrintWriter("game-metadata.txt", "UTF-8");
+				writer.println(playerCount);
+				writer.close();
+			} catch (Exception e) {
+				
+			}
+			PlayerUpdate pu = (PlayerUpdate) object;
+			for (Connection c : ConnectionManager.getInstance().getConnections()) {
+				c.sendTcp(pu);
 			}
 		}
 	}

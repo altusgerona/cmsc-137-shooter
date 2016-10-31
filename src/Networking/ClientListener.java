@@ -7,6 +7,7 @@ import com.jmr.wrapper.common.listener.SocketListener;
 
 import Entities.Bullet;
 import Packets.BulletFire;
+import Packets.PlayerUpdate;
 import Packets.Position;
 import Packets.StartSignal;
 
@@ -17,8 +18,8 @@ public class ClientListener implements SocketListener{
 	public static boolean ss;
 
 	@Override
-	public void connected(Connection arg0) {
-		
+	public void connected(Connection con) {
+		ClientStarter.client.getServerConnection().sendTcp(new PlayerUpdate(true));
 	}
 
 	@Override
@@ -39,6 +40,14 @@ public class ClientListener implements SocketListener{
 		
 		if (object instanceof StartSignal) {
 			ss = ((StartSignal) object).start;
+		}
+		
+		if (object instanceof PlayerUpdate) {
+			if (((PlayerUpdate) object).updateCount) {
+				States.States.playerCount++;
+				States.States.playerId=States.States.playerCount-1;
+				System.out.println(States.States.playerCount);
+			}
 		}
 	}
 	
