@@ -20,6 +20,7 @@ public class ClientListener implements SocketListener{
 	public static Map<Integer, Vector2f> playerInfo= new HashMap<Integer, Vector2f>();
 	public static Vector2f bulletPos;
 	public static Bullet b;
+	public static int playerId;
 	public static boolean ss;
 
 	@Override
@@ -41,6 +42,7 @@ public class ClientListener implements SocketListener{
 		if (object instanceof BulletFire) {
 			bulletPos = ((BulletFire) object).pos;
 			b = ((BulletFire) object).b;
+			playerId = ((BulletFire) object).playerId;
 		}
 		
 		if (object instanceof StartSignal) {

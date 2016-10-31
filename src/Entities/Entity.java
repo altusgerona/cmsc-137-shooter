@@ -42,13 +42,14 @@ public class Entity {
 		}
 	}
 	
-	public void fireBullet (Vector2f vec, Bullet b) {
+	public void fireBullet (Vector2f vec, Bullet b, int playerId) {
+//		if (playerId == States.States.playerId) return;
 		//Reset delta to 0 since the user has already left clicked
 		delta = 0;
 		
 		//Subtract the current position of the Player in coordinates from the clicked area's coordinates
-		if (Networking.ClientListener.playerInfo.get(States.States.playerId) != null) {
-			vec.sub(Networking.ClientListener.playerInfo.get(States.States.playerId));
+		if (Networking.ClientListener.playerInfo.get(playerId) != null) {
+			vec.sub(Networking.ClientListener.playerInfo.get(playerId));
 		} else {
 			vec.sub(pos);
 		}
@@ -57,8 +58,8 @@ public class Entity {
 		vec.normalise();
 		
 		//Initialize the current bullet with the current position of the Player and direction
-		if (Networking.ClientListener.playerInfo.get(States.States.playerId) != null) {
-			bullets[current] = b.init(Networking.ClientListener.playerInfo.get(States.States.playerId).copy(), vec);
+		if (Networking.ClientListener.playerInfo.get(playerId) != null) {
+			bullets[current] = b.init(Networking.ClientListener.playerInfo.get(playerId).copy(), vec);
 		} else {
 			bullets[current] = b.init(pos.copy(), vec);
 		}

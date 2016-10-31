@@ -32,11 +32,13 @@ public class Player extends Entity{
 		if (Networking.ClientListener.playerInfo.get(playerId) != null) {
 			g.fillRect(Networking.ClientListener.playerInfo.get(playerId).x-30, Networking.ClientListener.playerInfo.get(playerId).y-30, 60, 60);
 		} else {
-			g.fillRect(pos.getX()-30, pos.getY()-30, 60, 60);
+//			g.fillRect(pos.getX()-30, pos.getY()-30, 60, 60);
+			//Initialize the position of another player's
+			g.fillRect(400-30, 300-30, 60, 60);
 		}
 		
 		if (Networking.ClientListener.bulletPos != null) {
-			fireBullet(Networking.ClientListener.bulletPos, Networking.ClientListener.b);
+			fireBullet(Networking.ClientListener.bulletPos, Networking.ClientListener.b, Networking.ClientListener.playerId);
 			Networking.ClientListener.bulletPos = null;
 			Networking.ClientListener.b = null;
 		}
@@ -51,7 +53,7 @@ public class Player extends Entity{
 		if( gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && delta > fireRate) {
 			Vector2f mousePos = new Vector2f(gc.getInput().getMouseX(), gc.getInput().getMouseY());
 			Bullet newBullet = new Bullet();
-			Networking.ClientStarter.client.getServerConnection().sendTcp(new BulletFire(mousePos, newBullet));
+			Networking.ClientStarter.client.getServerConnection().sendTcp(new BulletFire(mousePos, newBullet, States.playerId));
 		}
 		
 		//Get the amount of distance to displace the Player
