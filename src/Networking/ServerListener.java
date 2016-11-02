@@ -1,12 +1,14 @@
 package Networking;
 
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 import com.jmr.wrapper.common.Connection;
 import com.jmr.wrapper.common.listener.SocketListener;
 
 
 import Packets.BulletFire;
+import Packets.ChatMessage;
 import Packets.PlayerUpdate;
 import Packets.Position;
 import Packets.StartSignal;
@@ -17,19 +19,31 @@ public class ServerListener implements SocketListener{
 
 	@Override
 	public void connected(Connection con) {
-		System.out.println("Client connected");
+		System.out.println("Client Connected");
 		ConnectionManager.getInstance().addConnection(con);
-	
+		for(Connection c : ConnectionManager.getInstance().getConnections()) {
+			c.sendTcp(new ChatMessage("", "New client has connected\n"));
+		}
 	}
 
 	@Override
 	public void disconnected(Connection con) {
-		System.out.println("Client disconnected");
+		System.out.println("Client Disconnected");
 		ConnectionManager.getInstance().removeConnection(con);
+		for(Connection c : ConnectionManager.getInstance().getConnections()) {
+			c.sendTcp(new ChatMessage("", "Client has disconnected\n"));
+		}
 	}
 
 	@Override
 	public void received(Connection con, Object object) {
+		if(object instanceof ChatMessage) {
+			ChatMessage msg = (ChatMessage) object;
+			for(Connection c : ConnectionManager.getInstance().getConnections()) {
+				c.sendTcp(msg);
+			}
+		}
+		
 		if (object instanceof Position) {
 			Position pos = (Position) object;
 			for (Connection c : ConnectionManager.getInstance().getConnections()) {
