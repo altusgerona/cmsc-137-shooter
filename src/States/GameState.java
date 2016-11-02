@@ -21,7 +21,7 @@ import Entities.Player;
 
 public class GameState extends BasicGameState{
 	
-	private Player[] p = new Player[2];
+	private Player[] p = new Player[20];
 	private LinkedList<Footmen> footMen;
 	private Footmen f;
 	private TextField tf;
@@ -44,6 +44,7 @@ public class GameState extends BasicGameState{
 		}
 		
 		playerCount = Integer.parseInt(currLine);
+		System.out.println("The playerCount is " + playerCount);
 		
 
 		for (int i=0; i<playerCount; i++){
