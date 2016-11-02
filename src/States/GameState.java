@@ -102,12 +102,23 @@ public class GameState extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame s, int t) throws SlickException {
 		if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 //			s.enterState(States.MENU);
-			chatEnabled = true;
+			if(chatEnabled) {
+				System.out.println(tf.getText());
+				tf.setText("");
+				chatEnabled = false;
+			} else {
+				tf.setFocus(true);
+				chatEnabled = true;
+			}
+		}
+		
+		if(chatEnabled) {
+			tf.setFocus(true);
 		}
 		
 		//Update all Players in every frame.
 		for(int i=0; i<playerCount; i++) {
-			p[i].update(gc, s, t);
+			p[i].update(gc, s, t, chatEnabled);
 		}
 		
 		//Update enemies in every frame.
