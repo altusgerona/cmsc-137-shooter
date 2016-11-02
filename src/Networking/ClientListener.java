@@ -25,6 +25,7 @@ public class ClientListener implements SocketListener{
 	public static Vector2f bulletPos;
 	public static Bullet b;
 	public static int playerId;
+	public static int chatCounter = 0;
 	public static boolean ss;
 
 	@Override
@@ -41,8 +42,14 @@ public class ClientListener implements SocketListener{
 		if(object instanceof ChatMessage) {
 			ChatMessage msg = (ChatMessage) object;
 			String currMessage = States.GameState.getMsgtf().getText();
-			//States.GameState.getMsgtf().setText(currMessage + "\n" + msg.username + ":" + msg.message);
-			States.GameState.getMsgtf().append(msg.username + ":" + msg.message);
+			System.out.println("Chat:" + chatCounter);
+			if(chatCounter < 8) {
+				States.GameState.getMsgtf().setText(currMessage + "\n" + msg.username + ":" + msg.message);
+			} else {
+				String[] result = currMessage.split("\n", 2);
+				States.GameState.getMsgtf().setText(result[1] + "\n" + msg.username + ":" + msg.message);
+			}
+			chatCounter++;
 		}
 		
 		if (object instanceof Position) {

@@ -15,7 +15,6 @@ import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-
 import Entities.Footmen;
 import Entities.Player;
 import Packets.ChatMessage;
@@ -65,11 +64,9 @@ public class GameState extends BasicGameState{
 	public void init(GameContainer gc, StateBasedGame s) throws SlickException {
 				//Initialize the players
 		
-		
-		
 		//Initialize TextField for chat
 		tf = new TextField(gc, gc.getDefaultFont(), 0, 580,800,25);
-		setMsgtf(new TextField(gc, gc.getDefaultFont(), 0, 400,800,280));
+		setMsgtf(new TextField(gc, gc.getDefaultFont(), 0, 400,800,185));
 
 		
 		//Initialize Footmen
