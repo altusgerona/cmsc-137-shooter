@@ -1,4 +1,6 @@
 package States;
+import java.util.Scanner;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -10,6 +12,7 @@ import com.jmr.wrapper.common.exceptions.NNClientCantConnect;
 
 import Networking.ClientStarter;
 import Networking.ServerStarter;
+import Packets.ChatMessage;
 import Packets.StartSignal;
 
 public class MultiplayerState extends BasicGameState {
@@ -36,7 +39,7 @@ public class MultiplayerState extends BasicGameState {
 		g.drawString("Press S to start the game", 330, 300);
 		
 		if (Networking.ClientListener.ss) {
-			s.enterState(States.GAME);
+			s.enterState(States.CHAT);
 		}
 	}
 

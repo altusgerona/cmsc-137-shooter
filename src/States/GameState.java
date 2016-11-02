@@ -18,10 +18,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import Entities.Footmen;
 import Entities.Player;
+import Packets.ChatMessage;
 
 public class GameState extends BasicGameState{
 	
-	private Player[] p = new Player[2];
+	private Player[] p = new Player[20];
 	private LinkedList<Footmen> footMen;
 	private Footmen f;
 	private TextField tf;
@@ -29,7 +30,7 @@ public class GameState extends BasicGameState{
 	private Random r;
 	private int playerId = States.playerId;
 	private int playerCount;
-	
+	private String username;
 	
 	public void enter(GameContainer gc, StateBasedGame s) throws SlickException {
 		//Get necessary game metadata from file
@@ -45,11 +46,13 @@ public class GameState extends BasicGameState{
 		
 		playerCount = Integer.parseInt(currLine);
 		
-
+		
+		
 		for (int i=0; i<playerCount; i++){
 			p[i] = new Player(new Vector2f(400, 300), i);
 			p[i].init(gc);
 			System.out.println("I initialize player with playerId "+p[i].playerId);
+			username = ChatState.username;
 		}
 		
 		
@@ -103,8 +106,10 @@ public class GameState extends BasicGameState{
 		if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 //			s.enterState(States.MENU);
 			if(chatEnabled) {
-				System.out.println(tf.getText());
+				String inFromClient = tf.getText();
 				tf.setText("");
+				ChatMessage msg = new ChatMessage(username, inFromClient);
+				Networking.ClientStarter.client.getServerConnection().sendTcp(msg);
 				chatEnabled = false;
 			} else {
 				tf.setFocus(true);
@@ -123,6 +128,8 @@ public class GameState extends BasicGameState{
 		
 		//Update enemies in every frame.
 		f.update(gc, t);
+		
+		
 	}
 
 	@Override
