@@ -40,7 +40,9 @@ public class ClientListener implements SocketListener{
 	public void received(Connection con, Object object) {
 		if(object instanceof ChatMessage) {
 			ChatMessage msg = (ChatMessage) object;
-			System.out.println(msg.username + ":" + msg.message); 			
+			String currMessage = States.GameState.getMsgtf().getText();
+			//States.GameState.getMsgtf().setText(currMessage + "\n" + msg.username + ":" + msg.message);
+			States.GameState.getMsgtf().append(msg.username + ":" + msg.message);
 		}
 		
 		if (object instanceof Position) {

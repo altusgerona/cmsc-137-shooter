@@ -26,11 +26,12 @@ public class GameState extends BasicGameState{
 	private LinkedList<Footmen> footMen;
 	private Footmen f;
 	private TextField tf;
+	private static TextField msgtf;
 	private boolean chatEnabled = false;
 	private Random r;
 	private int playerId = States.playerId;
 	private int playerCount;
-	private String username;
+	private String username;	
 	
 	public void enter(GameContainer gc, StateBasedGame s) throws SlickException {
 		//Get necessary game metadata from file
@@ -68,7 +69,8 @@ public class GameState extends BasicGameState{
 		
 		//Initialize TextField for chat
 		tf = new TextField(gc, gc.getDefaultFont(), 0, 580,800,25);
-		
+		setMsgtf(new TextField(gc, gc.getDefaultFont(), 0, 400,800,280));
+
 		
 		//Initialize Footmen
 		footMen = new LinkedList<Footmen>(); 
@@ -99,6 +101,11 @@ public class GameState extends BasicGameState{
 		if (chatEnabled) {
 			tf.render(gc, g);
 		}
+		
+		getMsgtf().render(gc, g);
+		getMsgtf().setBackgroundColor(null);
+		getMsgtf().setBorderColor(null);
+		getMsgtf().deactivate();
 	}
 
 	@Override
@@ -138,6 +145,14 @@ public class GameState extends BasicGameState{
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public static TextField getMsgtf() {
+		return msgtf;
+	}
+
+	public void setMsgtf(TextField msgtf) {
+		GameState.msgtf = msgtf;
 	}
 
 

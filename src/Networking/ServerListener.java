@@ -21,18 +21,12 @@ public class ServerListener implements SocketListener{
 	public void connected(Connection con) {
 		System.out.println("Client Connected");
 		ConnectionManager.getInstance().addConnection(con);
-		for(Connection c : ConnectionManager.getInstance().getConnections()) {
-			c.sendTcp(new ChatMessage("", "New client has connected\n"));
-		}
 	}
 
 	@Override
 	public void disconnected(Connection con) {
 		System.out.println("Client Disconnected");
 		ConnectionManager.getInstance().removeConnection(con);
-		for(Connection c : ConnectionManager.getInstance().getConnections()) {
-			c.sendTcp(new ChatMessage("", "Client has disconnected\n"));
-		}
 	}
 
 	@Override
