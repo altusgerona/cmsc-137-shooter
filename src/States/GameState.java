@@ -111,13 +111,14 @@ public class GameState extends BasicGameState{
 //			s.enterState(States.MENU);
 			if(chatEnabled) {
 				String inFromClient = tf.getText();
-				if(inFromClient != "") {
+				if(inFromClient != "" && !inFromClient.isEmpty()) {
 					tf.setText("");
 					ChatMessage msg = new ChatMessage(username, inFromClient);
 					Networking.ClientStarter.client.getServerConnection().sendTcp(msg);
 				}
 				chatEnabled = false;
 			} else {
+				tf.setText("");
 				tf.setFocus(true);
 				chatEnabled = true;
 			}

@@ -42,7 +42,7 @@ public class ClientListener implements SocketListener{
 		if(object instanceof ChatMessage) {
 			ChatMessage msg = (ChatMessage) object;
 			String currMessage = States.GameState.getMsgtf().getText();
-			System.out.println("Chat:" + chatCounter);
+			
 			if(chatCounter < 8) {
 				States.GameState.getMsgtf().setText(currMessage + "\n" + msg.username + ":" + msg.message);
 			} else {
