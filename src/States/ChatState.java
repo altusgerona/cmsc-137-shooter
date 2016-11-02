@@ -38,11 +38,10 @@ public class ChatState extends BasicGameState{
 	@Override
 	public void update(GameContainer gc, StateBasedGame s, int delta) throws SlickException {
 		if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
-			Scanner in = new Scanner(System.in);
-
 			username = usertf.getText();
-			s.enterState(States.GAME);
-			
+			if(username != "" && !username.isEmpty()) {
+				s.enterState(States.GAME);
+			}
 		}
 	}
 
