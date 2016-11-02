@@ -47,7 +47,7 @@ public class Player extends Entity{
 		
 	}
 	
-	public void update(GameContainer gc, StateBasedGame s, int t) throws SlickException {
+	public void update(GameContainer gc, StateBasedGame s, int t, boolean chatEnabled) throws SlickException {
 		super.update(gc, t); //Run the Entity "parent"'s update()
 		if( gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && delta > fireRate) {
 			Vector2f mousePos = new Vector2f(gc.getInput().getMouseX(), gc.getInput().getMouseY());
@@ -62,7 +62,7 @@ public class Player extends Entity{
 		//Controls 
 		
 		//Move right
-		if((gc.getInput().isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D) ) && 
+		if(( gc.getInput().isKeyDown(Input.KEY_RIGHT) || (!chatEnabled && gc.getInput().isKeyDown(Input.KEY_D)) ) && 
 				pos.getX() < States.GAME_HEIGHT ) {
 			pos.add(new Vector2f(distance,0));
 			//Send updated position to server to redistribute to the rest of the clients
@@ -70,7 +70,7 @@ public class Player extends Entity{
 		}
 		
 		//Move left
-		if((gc.getInput().isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A) ) && 
+		if(( gc.getInput().isKeyDown(Input.KEY_LEFT) || (!chatEnabled && gc.getInput().isKeyDown(Input.KEY_A)) )&& 
 				pos.getX() > 0  ) {
 		
 			pos.add(new Vector2f(-distance,0));
@@ -79,7 +79,7 @@ public class Player extends Entity{
 		}
 		
 		//Move down
-		if((gc.getInput().isKeyDown(Input.KEY_DOWN) || gc.getInput().isKeyDown(Input.KEY_S) ) && 
+		if( ( gc.getInput().isKeyDown(Input.KEY_DOWN) || (!chatEnabled && gc.getInput().isKeyDown(Input.KEY_S)) ) 	 && 
 				pos.getY() < States.GAME_WIDTH  ) {
 		
 			pos.add(new Vector2f(0,distance));
@@ -89,7 +89,7 @@ public class Player extends Entity{
 		}
 		
 		//Move up
-		if( ( gc.getInput().isKeyDown(Input.KEY_UP) || gc.getInput().isKeyDown(Input.KEY_W) ) && 
+		if( ( gc.getInput().isKeyDown(Input.KEY_UP) || (!chatEnabled && gc.getInput().isKeyDown(Input.KEY_W)) )  && 
 				pos.getY() > 0  ) {
 		
 			pos.add(new Vector2f(0,-distance));
