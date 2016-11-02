@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.newdawn.slick.geom.Vector2f;
 
@@ -13,9 +14,11 @@ import com.jmr.wrapper.common.listener.SocketListener;
 
 import Entities.Bullet;
 import Packets.BulletFire;
+import Packets.ChatMessage;
 import Packets.PlayerUpdate;
 import Packets.Position;
 import Packets.StartSignal;
+import States.ChatState;
 
 public class ClientListener implements SocketListener{
 	public static Map<Integer, Vector2f> playerInfo= new HashMap<Integer, Vector2f>();
@@ -30,12 +33,16 @@ public class ClientListener implements SocketListener{
 	}
 
 	@Override
-	public void disconnected(Connection arg0) {
-		
+	public void disconnected(Connection con) {
 	}
 
 	@Override
 	public void received(Connection con, Object object) {
+		if(object instanceof ChatMessage) {
+			ChatMessage msg = (ChatMessage) object;
+			System.out.println(msg.username + ":" + msg.message); 			
+		}
+		
 		if (object instanceof Position) {
 			playerInfo.put(((Position) object).playerId, ((Position) object).pos);
 		}
@@ -62,9 +69,7 @@ public class ClientListener implements SocketListener{
 					
 				}
 				
-				
 				States.States.playerId=Integer.parseInt(currLine)-1;
-				System.out.println("My playerId is "+States.States.playerId);
 			}
 		}
 		
