@@ -2,12 +2,13 @@ package States;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.LinkedList;
-import java.util.Random;
+//import java.util.LinkedList;
+//import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
@@ -22,12 +23,12 @@ import Packets.ChatMessage;
 public class GameState extends BasicGameState{
 	
 	private Player[] p = new Player[20];
-	private LinkedList<Footmen> footMen;
+	//private LinkedList<Footmen> footMen;
 	private Footmen f;
 	private TextField tf;
 	private static TextField msgtf;
 	private boolean chatEnabled = false;
-	private Random r;
+//	private Random r;
 	private int playerId = States.playerId;
 	private int playerCount;
 	private String username;	
@@ -70,7 +71,7 @@ public class GameState extends BasicGameState{
 
 		
 		//Initialize Footmen
-		footMen = new LinkedList<Footmen>(); 
+		//footMen = new LinkedList<Footmen>(); 
 		
 		
 		
@@ -82,10 +83,17 @@ public class GameState extends BasicGameState{
 		g.setColor(Color.white);
 		g.fillRect(0, 0, States.GAME_HEIGHT, States.GAME_WIDTH);
 		
+		Image background = new Image("resources/background.png");
+		g.drawImage(background, 0, 0);
+		
 		//Render all players
-		for (int i=0; i<playerCount; i++) {
-			
+		for (int i=0; i<playerCount; i++) {	
 			p[i].render(gc, g);
+			g.drawString(username, 370, 500);
+			g.drawRoundRect(220, 520, 350, 30, 5);
+			g.drawString("Score: 20", 370, 525);
+			g.drawRoundRect(205, 560, 380, 30, 5);
+			g.drawString("Level 1", 370, 565);
 		}
 		
 		//Continue rendering enemy/s if they're still alive
@@ -135,13 +143,10 @@ public class GameState extends BasicGameState{
 		
 		//Update enemies in every frame.
 		f.update(gc, t);
-		
-		
 	}
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

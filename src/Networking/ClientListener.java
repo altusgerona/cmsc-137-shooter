@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import org.newdawn.slick.geom.Vector2f;
 
@@ -18,7 +18,7 @@ import Packets.ChatMessage;
 import Packets.PlayerUpdate;
 import Packets.Position;
 import Packets.StartSignal;
-import States.ChatState;
+//import States.ChatState;
 
 public class ClientListener implements SocketListener{
 	public static Map<Integer, Vector2f> playerInfo= new HashMap<Integer, Vector2f>();

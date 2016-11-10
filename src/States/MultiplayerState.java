@@ -1,5 +1,5 @@
 package States;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,7 +12,7 @@ import com.jmr.wrapper.common.exceptions.NNClientCantConnect;
 
 import Networking.ClientStarter;
 import Networking.ServerStarter;
-import Packets.ChatMessage;
+//import Packets.ChatMessage;
 import Packets.StartSignal;
 
 public class MultiplayerState extends BasicGameState {

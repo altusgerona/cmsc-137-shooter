@@ -3,17 +3,17 @@ import java.util.Map;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
-import org.newdawn.slick.SpriteSheet;
+//import org.newdawn.slick.Sound;
+//import org.newdawn.slick.SpriteSheet;
 
 public class Resources {
 	private static Map<String, Image> images;
-	private static Map<String, SpriteSheet> sprites;
-	private static Map<String, Sound> sounds;
+//	private static Map<String, SpriteSheet> sprites;
+//	private static Map<String, Sound> sounds;
 	public Resources() {
 		images = new HashMap<String, Image>();
-		sprites = new HashMap<String, SpriteSheet>();
-		sounds = new HashMap<String, Sound>();
+//		sprites = new HashMap<String, SpriteSheet>();
+//		sounds = new HashMap<String, Sound>();
 		
 		try {
 			images.put("player", loadImage("res/path_to_image.png"));

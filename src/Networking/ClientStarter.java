@@ -1,11 +1,11 @@
 package Networking;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import com.jmr.wrapper.client.Client;
 import com.jmr.wrapper.common.exceptions.NNClientCantConnect;
 
-import Packets.ChatMessage;
+//import Packets.ChatMessage;
 
 public class ClientStarter {
 	public static Client client;
