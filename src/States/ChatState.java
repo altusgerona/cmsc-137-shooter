@@ -1,5 +1,7 @@
 package States;
 
+import org.newdawn.slick.Color;
+
 //import java.awt.Font;
 //import java.util.Scanner;
 
@@ -23,14 +25,13 @@ public class ChatState extends BasicGameState{
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame s) throws SlickException {
-		usertf = new TextField(gc, gc.getDefaultFont(), 250, 250,300, 35);
+		usertf = new TextField(gc, gc.getDefaultFont(), 250, 250,300, 20);
+		usertf.setBorderColor(Color.white);
 	}
-
-	
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame s, Graphics g) throws SlickException {
-		g.drawString("Enter Username:", 330, 200);
+		g.drawString("This is a tale of ...", 315, 200);
 		usertf.render(gc, g);
 		usertf.setFocus(true);
 	}
