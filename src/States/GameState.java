@@ -2,6 +2,7 @@ package States;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 //import java.util.LinkedList;
 //import java.util.Random;
 import java.util.Random;
@@ -35,15 +36,26 @@ public class GameState extends BasicGameState{
 	private int playerId = States.playerId;
 	private int playerCount;
 	private int polygonCount;
-	private String username;	
-	
+	private String username;
+	private int highScore;
+	private ArrayList topPlayers = new ArrayList();
 	public void enter(GameContainer gc, StateBasedGame s) throws SlickException {
 		//Get necessary game metadata from file
 		BufferedReader br;
 		String currLine = null;
+		String temp = null;
+		
 		try {
 			br = new BufferedReader(new FileReader("game-metadata.txt"));
 			currLine = br.readLine();
+			br.close();
+			br = new BufferedReader(new FileReader("resources/leaderboard.txt"));
+			int i = 0;
+			while((temp = br.readLine()) != null){
+				topPlayers.add(temp);
+			}
+			String[] tokens = topPlayers.get(0).toString().split("[ ]+");
+			highScore = Integer.parseInt(tokens[1]);
 			br.close();
 		} catch(Exception e) {
 			
@@ -133,12 +145,17 @@ public class GameState extends BasicGameState{
 		
 		g.drawString("Scoreboard",650, 10);
 		for(int i = 1; i <= 10; i++){			
+			String temp = topPlayers.get(i-1).toString();
+			
+			String[] tokens = temp.split("[ ]+");
 			g.setColor(Color.gray);
 			g.fillRoundRect(590, 30 + (25 * (i-1)), 200, 20, 5);
 			g.setColor(Color.green);
-			g.fillRoundRect(591, 30 + (25 * (i-1)), 150 - (i*10), 18, 5);
+			Double score = (Double.parseDouble(tokens[1]) / highScore) * 200;
+			int scoreWidth = score.intValue();
+			g.fillRoundRect(591, 30 + (25 * (i-1)), scoreWidth, 18, 5);
 			g.setColor(Color.black);
-			g.drawString("Player " + i + ":" + (11-i) + "000", 600, 30 + (25 * (i-1)));
+			g.drawString(tokens[0] + ":" + tokens[1], 600, 30 + (25 * (i-1)));
 		}
 		
 	}
