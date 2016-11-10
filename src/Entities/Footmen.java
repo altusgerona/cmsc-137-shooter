@@ -1,5 +1,7 @@
 package Entities;
 
+import java.util.Random;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -22,9 +24,8 @@ public class Footmen extends Entity{
 		super.render(gc, g);
 		
 		//Draw Footmen
-		g.setColor(Color.black);
-		g.fillRect(pos.getX()-20, pos.getY()-20, 40, 40);
-		
+		g.setColor(Color.yellow);
+		g.fillRect(pos.getX()-20, pos.getY()-20, 20, 20);
 	}
 	
 	public void update(GameContainer gc, int t) throws SlickException {
@@ -35,9 +36,9 @@ public class Footmen extends Entity{
 		//Scalar multiply the vector by the ratio of update delta t and the Footmen's movespeed
 		//Add the newly created vector to the current position of the enemy.
 		if (Networking.ClientListener.playerInfo.get(States.States.playerId) != null) {
-			pos.add(Networking.ClientListener.playerInfo.get(States.States.playerId).copy().sub(pos).normalise().scale((float)t/moveSpeed));
+			//pos.add(Networking.ClientListener.playerInfo.get(States.States.playerId).copy().sub(pos).normalise().scale((float)t/moveSpeed));
 		} else {
-			pos.add(p.getPos().copy().sub(pos).normalise().scale((float)t/moveSpeed));
+			//pos.add(p.getPos().copy().sub(pos).normalise().scale((float)t/moveSpeed));
 			
 		}
 		
