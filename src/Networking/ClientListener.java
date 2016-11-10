@@ -45,9 +45,11 @@ public class ClientListener implements SocketListener{
 			
 			if(chatCounter < 8) {
 				States.GameState.getMsgtf().setText(currMessage + "\n" + msg.username + ":" + msg.message);
+				States.OptionState.getMsgtf().setText(currMessage + "\n" + msg.username + ":" + msg.message);
 			} else {
 				String[] result = currMessage.split("\n", 2);
 				States.GameState.getMsgtf().setText(result[1] + "\n" + msg.username + ":" + msg.message);
+				States.OptionState.getMsgtf().setText(result[1] + "\n" + msg.username + ":" + msg.message);
 			}
 			chatCounter++;
 		}
