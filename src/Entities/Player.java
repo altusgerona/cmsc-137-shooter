@@ -3,6 +3,7 @@ package Entities;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
@@ -27,13 +28,12 @@ public class Player extends Entity{
 		if (!isAlive()) return;
 		super.render(gc, g);
 		
-		g.setColor(Color.blue);
-		
+		 g.setColor(Color.blue);
 		if (Networking.ClientListener.playerInfo.get(playerId) != null) {
-			g.fillRect(Networking.ClientListener.playerInfo.get(playerId).x-30, Networking.ClientListener.playerInfo.get(playerId).y-30, 60, 60);
+			g.fillOval(Networking.ClientListener.playerInfo.get(playerId).x-30, Networking.ClientListener.playerInfo.get(playerId).y-30, 60, 60);
 		} else {
 			//Initialize the position of another player's
-			g.fillRect(400-30, 300-30, 60, 60);
+			g.fillOval(400-30, 300-30, 60, 60);
 		}
 		
 		if (Networking.ClientListener.bulletPos != null && delta > fireRate) {

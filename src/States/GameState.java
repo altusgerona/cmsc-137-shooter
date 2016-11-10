@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 //import java.util.LinkedList;
 //import java.util.Random;
+import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -23,14 +24,16 @@ import Packets.ChatMessage;
 public class GameState extends BasicGameState{
 	
 	private Player[] p = new Player[20];
+	private Footmen[] f = new Footmen[20];
 	//private LinkedList<Footmen> footMen;
-	private Footmen f;
+//	private Footmen f;
 	private TextField tf;
 	private static TextField msgtf;
 	private boolean chatEnabled = false;
 //	private Random r;
 	private int playerId = States.playerId;
 	private int playerCount;
+	private int polygonCount;
 	private String username;	
 	
 	public void enter(GameContainer gc, StateBasedGame s) throws SlickException {
@@ -46,8 +49,7 @@ public class GameState extends BasicGameState{
 		}
 		
 		playerCount = Integer.parseInt(currLine);
-		
-		
+		polygonCount = 20;
 		
 		for (int i=0; i<playerCount; i++){
 			p[i] = new Player(new Vector2f(400, 300), i);
@@ -56,9 +58,12 @@ public class GameState extends BasicGameState{
 			username = ChatState.username;
 		}
 		
-		
-		f = new Footmen(new Vector2f(150, 200), p[0]);
-		System.out.println("My supposed playerID is "+States.playerId);
+		for (int i=0; i<polygonCount; i++){
+			Random rand = new Random();
+			int x = rand.nextInt(800) + 1;
+			int y = rand.nextInt(600) + 1;
+			f[i] = new Footmen(new Vector2f(x, y), p[i]);
+		}
 	}
 
 	@Override
@@ -72,9 +77,6 @@ public class GameState extends BasicGameState{
 		
 		//Initialize Footmen
 		//footMen = new LinkedList<Footmen>(); 
-		
-		
-		
 	}
 
 	@Override
@@ -86,20 +88,17 @@ public class GameState extends BasicGameState{
 		Image background = new Image("resources/background.png");
 		g.drawImage(background, 0, 0);
 		
-		//Render all players
-		for (int i=0; i<playerCount; i++) {	
-			p[i].render(gc, g);
-			g.drawString(username, 370, 500);
-			g.drawRoundRect(220, 520, 350, 30, 5);
-			g.drawString("Score: 20", 370, 525);
-			g.drawRoundRect(205, 560, 380, 30, 5);
-			g.drawString("Level 1", 370, 565);
-		}
-		
 		//Continue rendering enemy/s if they're still alive
-		if (f.isAlive()) {
-			f.render(gc, g);
-			f.isHit(p[playerId].getBullets());
+		for (int i=0; i<polygonCount; i++) {	
+			if (f[i].isAlive()) {
+				f[i].render(gc, g);
+				f[i].isHit(p[playerId].getBullets());
+			} else {
+				Random rand = new Random();
+				int x = rand.nextInt(600) + 1;
+				int y = rand.nextInt(600) + 1;
+				f[i] = new Footmen(new Vector2f(x, y), p[i]);
+			}
 		}
 		
 		//Render TextField
@@ -111,6 +110,18 @@ public class GameState extends BasicGameState{
 		getMsgtf().setBackgroundColor(null);
 		getMsgtf().setBorderColor(null);
 		getMsgtf().deactivate();
+		
+
+		//Render all players
+		for (int i=0; i<playerCount; i++) {	
+			p[i].render(gc, g);
+			g.drawString(username, 370, 500);
+			g.drawRoundRect(220, 520, 350, 30, 5);
+			g.drawString("Score: 20", 370, 525);
+			g.drawRoundRect(205, 560, 380, 30, 5);
+			g.drawString("Level 1", 370, 565);
+		}
+		
 	}
 
 	@Override
@@ -142,7 +153,10 @@ public class GameState extends BasicGameState{
 		}
 		
 		//Update enemies in every frame.
-		f.update(gc, t);
+		for(int i=0; i<polygonCount; i++) {
+			f[i].update(gc, t);
+		}
+		
 	}
 
 	@Override

@@ -32,8 +32,6 @@ public class MultiplayerState extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame s, Graphics g) throws SlickException {
-		
-		
 		g.drawString("Press C to start a server", 330, 200);
 		g.drawString("Press J to join a server", 330, 250);
 		g.drawString("Press S to start the game", 330, 300);

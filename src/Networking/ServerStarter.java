@@ -8,7 +8,7 @@ public class ServerStarter {
 	
 	public ServerStarter() {
 		try {
-			server = new Server(1337, 1337);
+			server = new Server(1337, 1340);
 			server.setListener(new ServerListener());
 			if (server.isConnected()) {
 				System.out.println("Server started");

@@ -27,6 +27,8 @@ public class MenuState extends BasicGameState{
 //		g.setColor(Color.black);
 //		g.fillRect(0, 0, States.GAME_HEIGHT, States.GAME_WIDTH);
 		g.drawString("Survival Shooter", 330, 200);
+		g.drawString("(Press M to proceed)", 312, 500);
+		
 	}
 
 	@Override
