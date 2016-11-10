@@ -21,6 +21,7 @@ import Entities.Footmen;
 import Entities.Player;
 import Packets.ChatMessage;
 
+
 public class GameState extends BasicGameState{
 	
 	private Player[] p = new Player[20];
@@ -116,10 +117,28 @@ public class GameState extends BasicGameState{
 		for (int i=0; i<playerCount; i++) {	
 			p[i].render(gc, g);
 			g.drawString(username, 370, 500);
-			g.drawRoundRect(220, 520, 350, 30, 5);
-			g.drawString("Score: 20", 370, 525);
-			g.drawRoundRect(205, 560, 380, 30, 5);
-			g.drawString("Level 1", 370, 565);
+			g.setColor(Color.gray);
+			g.fillRoundRect(220, 520, 350, 30, 5);
+			g.setColor(Color.green);
+			g.fillRoundRect(221, 520, 30, 30, 5);
+			g.setColor(Color.black);
+			g.drawString("Score: 20", 350, 525);
+			g.setColor(Color.gray);
+			g.fillRoundRect(205, 560, 380, 30, 5);
+			g.setColor(Color.orange);
+			g.fillRoundRect(206, 560, 300, 30, 5);
+			g.setColor(Color.black);
+			g.drawString("Level 1", 360, 565);
+		}
+		
+		g.drawString("Scoreboard",650, 10);
+		for(int i = 1; i <= 10; i++){			
+			g.setColor(Color.gray);
+			g.fillRoundRect(590, 30 + (25 * (i-1)), 200, 20, 5);
+			g.setColor(Color.green);
+			g.fillRoundRect(591, 30 + (25 * (i-1)), 150 - (i*10), 18, 5);
+			g.setColor(Color.black);
+			g.drawString("Player " + i + ":" + (11-i) + "000", 600, 30 + (25 * (i-1)));
 		}
 		
 	}
