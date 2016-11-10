@@ -50,9 +50,8 @@ public class OptionState extends BasicGameState{
 		getMsgtf().render(gc, g);
 		getMsgtf().setBackgroundColor(null);
 		getMsgtf().setBorderColor(null);
-		getMsgtf().setTextColor(Color.blue);
+		getMsgtf().setTextColor(Color.white);
 		getMsgtf().deactivate();
-		
 	}
 
 	@Override
@@ -64,14 +63,14 @@ public class OptionState extends BasicGameState{
 				s.enterState(States.GAME);
 			}
 		}
-		tf.setFocus(true);
 		
+		tf.setFocus(true);
 		if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 			String inFromClient = tf.getText();
 			if(inFromClient != "" && !inFromClient.isEmpty()) {
-					tf.setText("");
-					ChatMessage msg = new ChatMessage(username, inFromClient);
-					Networking.ClientStarter.client.getServerConnection().sendTcp(msg);
+				tf.setText("");
+				ChatMessage msg = new ChatMessage(username, inFromClient);
+				Networking.ClientStarter.client.getServerConnection().sendTcp(msg);
 			}
 		}		
 	}
