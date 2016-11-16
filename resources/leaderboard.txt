@@ -1,0 +1,10 @@
+Liberty 1000
+Pau 900
+Kat 800
+Millen 700
+Acer 600
+Lisa 500
+Mona 400
+Erin 300
+Louise 200
+Noreen 100
